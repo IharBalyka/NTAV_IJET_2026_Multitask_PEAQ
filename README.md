@@ -1,5 +1,3 @@
-# NTAV_IJET_2026_Multitask_PEAQ
-
 # Non-Intrusive PEAQ Approximation Using Deep Neural Networks: a Comparison of Single-Task and Multitask Approaches
 
 Official repository for the paper **“Non-Intrusive PEAQ Approximation Using Deep Neural Networks: a Comparison of Single-Task and Multitask Approaches”** (IJET, 2026).
@@ -69,6 +67,8 @@ The repository provides checkpoints for **eight model sizes** (parameter counts 
 | `8M`       | ≈ 8 M   | ✅ | ✅ | — | — |
 
 `—` means the architecture was not trained for that size (as described in the paper).  
+
+Due to Github limitations bigger checkpoints are available at Kaggle: www.kaggle.com/datasets/igorewka/ntav-ijet-2026-multitask-peaq
 
 ---
 
