@@ -1,0 +1,18 @@
+numpy>=1.24
+torch>=2.0
+librosa>=0.10
+tqdm>=4.65
+
+# ============================================================
+# System dependency (NOT installable via pip)
+# ============================================================
+# ffmpeg — used as a fallback audio decoder if librosa cannot
+#          read the file directly.
+#   Ubuntu/Debian : sudo apt install ffmpeg
+#   macOS         : brew install ffmpeg
+#   Windows       : https://ffmpeg.org/download.html
+#
+# Tkinter — needed only for the graphical file-picker dialog
+#           when no command-line arguments are given.
+#   Ubuntu/Debian : sudo apt install python3-tk
+#   macOS/Windows : bundled with the standard Python installer
