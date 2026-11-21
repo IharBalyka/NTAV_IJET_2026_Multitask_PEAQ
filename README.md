@@ -47,7 +47,7 @@ Four architectures are compared in the paper:
 All models share the same convolutional feature extractor and the same input representation (log‑mel spectrograms, 7‑second windows, 44.1 kHz, `n_fft=2048`, `hop_length=256`).  
 For each audio file, the final prediction is the average of the model outputs over all 7‑second windows (50 % overlap).
 
-Architecture diagrams for each model and size are available as `Overview.pdf` inside every checkpoint folder.
+Architecture diagrams for each model and size are available as `.pdf` inside every checkpoint folder.
 
 ---
 
@@ -68,7 +68,7 @@ The repository provides checkpoints for **eight model sizes** (parameter counts 
 
 `—` means the architecture was not trained for that size (as described in the paper).  
 
-Due to Github limitations bigger checkpoints are available at Kaggle: www.kaggle.com/datasets/igorewka/ntav-ijet-2026-multitask-peaq
+Due to Github limitations 8M and 4M checkpoints are available at Kaggle: www.kaggle.com/datasets/igorewka/ntav-ijet-2026-multitask-peaq
 
 ---
 
