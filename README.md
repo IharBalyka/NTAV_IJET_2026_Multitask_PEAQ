@@ -2,7 +2,7 @@
 
 Official repository for the paper **“Non-Intrusive PEAQ Approximation Using Deep Neural Networks: a Comparison of Single-Task and Multitask Approaches”** (IJET, 2026).
 
-This repository contains PyTorch checkpoints for four PEAQ‑approximation architectures across eight model sizes, together with an inference script (`peaq_predict.py`) and architecture diagrams. The models estimate the Objective Difference Grade (ODG) and, depending on the architecture, also the Distortion Index (DI) and the eleven Model Output Variables (MOV1–MOV11) directly from a degraded audio signal—without access to the reference recording.
+This repository contains PyTorch checkpoints, together with an inference script (`peaq_predict.py`) and architecture diagrams. The models estimate the Objective Difference Grade (ODG), the Distortion Index (DI) and the eleven Model Output Variables (MOV1–MOV11) directly from a degraded audio signal—without access to the reference recording.
 
 ---
 
@@ -47,28 +47,13 @@ Four architectures are compared in the paper:
 All models share the same convolutional feature extractor and the same input representation (log‑mel spectrograms, 7‑second windows, 44.1 kHz, `n_fft=2048`, `hop_length=256`).  
 For each audio file, the final prediction is the average of the model outputs over all 7‑second windows (50 % overlap).
 
-Architecture diagrams for each model and size are available as `.pdf` inside every checkpoint folder.
+Architecture diagrams for the best models are available as `*.pdf` alongside every checkpoint.
 
 ---
 
 ## Model checkpoints
 
-The repository provides checkpoints for **eight model sizes** (parameter counts are approximate):
-
-| Size tag | Parameters | Single-task | Multitask-DI | Multitask-CAS | Multitask-DYN |
-|---|---|---|---|---|---|
-| `0.0039M` | ≈ 3.9 k | ✅ | ✅ | ✅ | ✅ |
-| `0.0078M` | ≈ 7.8 k | ✅ | ✅ | ✅ | ✅ |
-| `0.0156M` | ≈ 15.6 k | ✅ | ✅ | ✅ | ✅ |
-| `0.0312M` | ≈ 31.2 k | ✅ | ✅ | ✅ | ✅ |
-| `0.5M`     | ≈ 0.5 M | ✅ | ✅ | — | ✅ |
-| `2M`       | ≈ 2 M   | ✅ | ✅ | — | — |
-| `4M`       | ≈ 4 M   | ✅ | ✅ | ✅ | ✅ |
-| `8M`       | ≈ 8 M   | ✅ | ✅ | — | — |
-
-`—` means the architecture was not trained for that size (as described in the paper).  
-
-Due to Github limitations 8M and 4M checkpoints are available at Kaggle: www.kaggle.com/datasets/igorewka/ntav-ijet-2026-multitask-peaq
+The repository provides the five best checkpoints for different model sizes, ranked by the Pearson correlation coefficient on the test subset.
 
 ---
 
@@ -129,18 +114,16 @@ python peaq_predict.py -i path/to/audio -m path/to/checkpoints -o results.csv
 ## Output format
 
 The output is a CSV file with one row per audio file and one column per model‑metric combination.
+Each model produces 13 columns, e.g., `1. 4M-Dynamic [ODG]`, `1. 4M-Dynamic [DI]`, `1. 4M-Dynamic [MOV1]`, …, `1. 4M-Dynamic [MOV11]`.
 
-- For **Single‑task** models: one column, e.g., `Single-task_0.0039M [ODG]`.
-- For **Multitask / Cascade / Dynamic** models: 13 columns, e.g., `Multitask-DI_0.0039M [ODG]`, `Multitask-DI_0.0039M [DI]`, `Multitask-DI_0.0039M [MOV1]`, …, `Multitask-DI_0.0039M [MOV11]`.
-
-If the same metric is produced by more than one model, an additional `MEAN[<metric>]` column is appended, containing the average across those models.
+If more than one model is chosen, an additional `MEAN[<metric>]` column is appended, containing the average across those models.
 
 All values are de‑standardised back to the original PEAQ scale using the built‑in PEAQ z‑score statistics (`PEAQ_MEAN` / `PEAQ_STD`).
 
 **Example (excerpt):**
 
 ```csv
-file,Single-task_0.0039M [ODG],Multitask-DI_0.0039M [ODG],Multitask-DI_0.0039M [DI],...,MEAN[ODG]
+file,1. 4M-Dynamic [ODG],1. 4M-Dynamic [DI], ... ,2. 0.5M-Dynamic [ODG],2. 0.5M-Dynamic [DI],...,MEAN[ODG]
 audio/sample_01.wav,-0.42,-0.39,1.87,...,-0.405
 audio/sample_02.wav,-1.15,-1.08,3.22,...,-1.115
 ```
@@ -156,9 +139,9 @@ audio/sample_02.wav,-1.15,-1.08,3.22,...,-1.115
 
 ---
 
-Each checkpoint folder contains:
-- `*.ckpt` — training runs.
-- `Overview.pdf` — architecture diagram for that specific size and architecture.
+Each checkpoint has a diagram describing it, named the same way:
+- `*.ckpt` — the checkpoint.
+- `*.pdf` — the architecture diagram for that specific checkpoint.
 
 ## License
 
